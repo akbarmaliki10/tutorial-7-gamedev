@@ -1,6 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Box.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Switch.gd" type="Script" id=3]
+[ext_resource path="res://scenes/World 1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ObjLamp.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/AreaGoalCondition.tscn" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.498039, 0.498039, 0.498039, 1 )
@@ -23,9 +28,7 @@ material = SubResource( 6 )
 [node name="Level" type="Spatial"]
 
 [node name="Ground" type="MeshInstance" parent="."]
-editor/display_folded = true
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Ground"]
 
@@ -33,10 +36,8 @@ material/0 = null
 shape = SubResource( 2 )
 
 [node name="Wall" type="MeshInstance" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 25, 25 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 25 )
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Wall"]
 
@@ -44,10 +45,8 @@ material/0 = null
 shape = SubResource( 2 )
 
 [node name="Wall2" type="MeshInstance" parent="."]
-editor/display_folded = true
-transform = Transform( -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0, 1, 25, 25, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 25, 25, 0 )
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Wall2"]
 
@@ -68,12 +67,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.7144, 0.0330887 )
 omni_range = 49.945
 
 [node name="Switch" type="MeshInstance" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 25.5 )
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Switch"]
+script = ExtResource( 3 )
+light = NodePath("../../OmniLight")
 
 [node name="CollisionShape" type="CollisionShape" parent="Switch/StaticBody"]
 shape = SubResource( 5 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8445, 7.28499, 1.2996 )
+
+[node name="World1" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.26891, 11.8518, 3.14852 )
+
+[node name="ObjLamp" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.23906, 5.6749, -4.04337 )
+
+[node name="WinArea" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.839828, -0.17029, -0.515451, -0.0708001, 0.907054, -0.415018, 0.538215, 0.385038, 0.749713, -13.1348, 4.87181, -1.02482 )
